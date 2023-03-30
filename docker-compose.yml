@@ -7,15 +7,19 @@ services:
     ports:
       - "8080:8080"
       - "50000:50000"
+    environment:
+      - JENKINS_ADMIN_ID=admin
+      - JENKINS_ADMIN_PASSWORD=admin
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
       - jenkins_home:/var/jenkins_home
     restart: always
 
-  myprogram:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: myprogram
+    container_name: app
     depends_on:
       - jenkins
     environment:
